@@ -1,12 +1,12 @@
 <div class="flex flex-col items-center h-full w-full pt-12">
-	<h2 class="mt-2 text-center text-3xl font-bold tracking-tight text-base-content">
-		Register for an account
-	</h2>
-	<p class="text-center mt-1">
-		Or <a href="/login" class="text-primary font-medium hover:cursor-pointer">sign in</a> if you already
-		have an account.
-	</p>
-	<div class="bg-white py-6 shadow-md rounded-lg w-full max-w-sm mt-6">
+	<div class="bg-base-100 py-6 shadow-md rounded-lg w-full max-w-sm mt-6">
+    <h2 class="mt-2 text-center text-3xl font-bold tracking-tight text-base-content">
+      Register for an account
+    </h2>
+    <p class="text-center mt-1">
+      Or <a href="/login" class="text-primary font-medium hover:cursor-pointer">sign in</a> if you already
+      have an account.
+    </p>
 		<form method="POST" action="?/register" class="flex flex-col items-center space-y-2 w-full">
 			<div class="form-control w-full max-w-xs">
 				<label for="name" class="label font-medium pb-1">
