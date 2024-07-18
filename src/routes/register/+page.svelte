@@ -1,3 +1,6 @@
+<script>
+	export let form;
+</script>
 <div class="flex flex-col items-center h-full w-full pt-12">
 	<div class="bg-base-100 py-6 shadow-md rounded-lg w-full max-w-sm mt-6">
     <h2 class="mt-2 text-center text-3xl font-bold tracking-tight text-base-content">
@@ -8,6 +11,7 @@
       have an account.
     </p>
 		<form method="POST" action="?/register" class="flex flex-col items-center space-y-2 w-full">
+      {#if form?.incorrect}<p class="error">{form.message}</p>{/if}
 			<div class="form-control w-full max-w-xs">
 				<label for="name" class="label font-medium pb-1">
 					<span class="label-text">Name</span>

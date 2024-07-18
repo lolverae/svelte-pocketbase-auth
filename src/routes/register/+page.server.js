@@ -1,4 +1,4 @@
-import { error, redirect } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 
 export const load = ({ locals }) => {
   if (locals.pb.authStore.isValid) {
@@ -12,14 +12,16 @@ export const actions = {
     console.log(JSON.stringify(data.password).length);
 
     if (!data.email || !data.password) {
-      return error(400, {
-        message: "User required",
+      return fail(400, {
+        message: "Provide the required data!",
+        incorrect: true,
       });
     }
 
     if (JSON.stringify(data.password).length < 8) {
-      return error(400, {
+      return fail(400, {
         message: "Passwords should be longer than 8 characters",
+        incorrect: true,
       });
     }
 
