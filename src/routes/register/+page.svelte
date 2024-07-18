@@ -11,13 +11,6 @@
       have an account.
     </p>
 		<form method="POST" action="?/register" class="flex flex-col items-center space-y-2 w-full">
-      {#if form?.incorrect}
-        <div class="toast toast-start toast-center">
-          <div class="alert alert-error">
-            <span class="error-content font-medium">{form.message}</span>
-          </div>
-        </div>
-      {/if}
 			<div class="form-control w-full max-w-xs">
 				<label for="name" class="label font-medium pb-1">
 					<span class="label-text">Name</span>
@@ -49,6 +42,13 @@
 			<div class="w-full max-w-xs pt-3">
 				<button class="btn btn-primary w-full max-w-xs">Register</button>
 			</div>
+      {#if form?.incorrect}
+        <div class="toast toast-start toast-center">
+          <div class="alert alert-error">
+            <span class="error-content font-medium">{form.message}</span>
+          </div>
+        </div>
+      {/if}
 		</form>
 	</div>
 </div>
