@@ -7,35 +7,35 @@ export const load = ({ locals }) => {
 };
 export const actions = {
   register: async ({ locals, request }) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries([...formData]);
-
-    if (!data.email || !data.password) {
-      return fail(400, {
-        message: "Provide user data!",
-        incorrect: true,
-      });
-    }
-
-    if (JSON.stringify(data.password).length < 8) {
-      return fail(400, {
-        message: "Passwords should be longer than 8 characters",
-        incorrect: true,
-      });
-    }
-
     try {
+      const formData = await request.formData();
+      const data = Object.fromEntries([...formData]);
+
+      if (!data.email || !data.password) {
+        return fail(400, {
+          message: "Provide user data!",
+          incorrect: true,
+        });
+      }
+
+      if (data.password.length < 8) {
+        return fail(400, {
+          message: "Passwords should be longer than 8 characters",
+          incorrect: true,
+        });
+      }
+
       await locals.pb.collection("users").create(data);
 
       await locals.pb.collection("users").authWithPassword(
         data.email,
         data.password,
       );
-    } catch (err) {
-      console.log("Error:", err);
+    } catch (error) {
+      console.log("Error:", error);
       return {
-        error: true,
-        message: err,
+        status: error.status || 500, // Default to 500 if status is not provided
+        message: error.message || "Internal Server Error",
       };
     }
 

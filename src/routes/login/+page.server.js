@@ -7,25 +7,25 @@ export const load = ({ locals }) => {
 };
 export const actions = {
   login: async ({ locals, request }) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries([...formData]);
-
-    if (!data.email || !data.password) {
-      return fail(400, {
-        message: "Please fill out the user fields",
-        incorrect: true,
-      });
-    }
     try {
+      const formData = await request.formData();
+      const data = Object.fromEntries([...formData]);
+
+      if (!data.email || !data.password) {
+        return fail(400, {
+          message: "Please fill out the user fields",
+          incorrect: true,
+        });
+      }
       await locals.pb.collection("users").authWithPassword(
         data.email,
         data.password,
       );
     } catch (err) {
-      console.log("Error:", err);
+      console.error("Login error:", err);
       return {
         error: true,
-        email: data.email,
+        email: data ? data.email : "",
       };
     }
     throw redirect(303, "/");
