@@ -31,10 +31,12 @@ export const actions = {
         data.email,
         data.password,
       );
+
+      locals.pb.authStore.clear();
     } catch (error) {
       console.log("Error:", error);
       return {
-        status: error.status || 500, // Default to 500 if status is not provided
+        status: error.status || 500,
         message: error.message || "Internal Server Error",
       };
     }
