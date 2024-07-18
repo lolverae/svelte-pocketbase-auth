@@ -13,7 +13,7 @@ export const actions = {
 
     if (!data.email || !data.password) {
       return fail(400, {
-        message: "Provide the required data!",
+        message: "Provide user data!",
         incorrect: true,
       });
     }
