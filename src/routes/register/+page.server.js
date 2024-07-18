@@ -9,7 +9,6 @@ export const actions = {
   register: async ({ locals, request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries([...formData]);
-    console.log(JSON.stringify(data.password).length);
 
     if (!data.email || !data.password) {
       return fail(400, {
