@@ -1,5 +1,6 @@
 <script>
 	export let form;
+  export let data;
 </script>
 <div class="flex flex-col items-center h-full w-full pt-12">
 	<div class="py-6 shadow-md rounded-lg w-full max-w-sm mt-6 bg-base-100">
@@ -34,5 +35,14 @@
         </div>
       {/if}
 		</form>
+    <form method="POST">
+    <div class="pt-3 flex flex-col items-center w-full space-y-2">
+      {#each data.providers as provider}
+        <button class="btn btn-neutral max-w-xs" formaction="?/{provider.name}">
+            <span>Login with {provider.name}</span>
+        </button>
+      {/each}
+    </div>
+    </form>
 	</div>
 </div>

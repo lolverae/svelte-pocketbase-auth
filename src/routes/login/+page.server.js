@@ -1,10 +1,17 @@
 import { fail, redirect } from "@sveltejs/kit";
+import { env } from "$env/dynamic/private";
 
-export const load = ({ locals }) => {
+export const load = async ({ locals, url }) => {
   if (locals.pb.authStore.isValid) {
     throw redirect(303, "/");
   }
+
+  const authMethods = await locals.pb.collection("users").listAuthMethods();
+  const fail = url.searchParams.get("fail") === "true";
+
+  return { providers: authMethods.authProviders, fail };
 };
+
 export const actions = {
   login: async ({ locals, request }) => {
     try {
@@ -29,5 +36,17 @@ export const actions = {
       };
     }
     throw redirect(303, "/");
+  },
+
+  google: async ({ locals, request, cookies }) => {
+    const provider = (
+      await locals.pb.collection("users").listAuthMethods()
+    ).authProviders.find((p) => p.name === "google");
+    cookies.set("provider", JSON.stringify(provider), {
+      httpOnly: true,
+      path: `/auth/callback/google`,
+    });
+
+    throw redirect(303, provider.authUrl + env.REDIRECT_URL + provider.name);
   },
 };
